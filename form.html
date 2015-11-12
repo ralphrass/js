@@ -95,7 +95,7 @@
 				<br>
 
 				<label>> 13?</label>
-				<input type="checkbox" id="maior" />
+				<input type="checkbox" id="idade" />
 				<br>
 
 			</fieldset>
@@ -112,16 +112,51 @@
 
 			form.onsubmit = function(){
 
-				var usuario = document.getElementById("usuario");
+				var elem = document.getElementById("idade");
+				
+				if (! checkRequired(elem)){
 
-				if (usuario.value == ""){
-
-					alert("Por favor, preencha o campo Usuário.");
+					alert("Campo vazio - deve ter mais que 13 anos para usar o site");
 
 					return false;
 				}
-
 			}			
+		}
+
+		function checkRequired(elem){
+
+			if (elem.type == "checkbox" || elem.type == "radio"){
+
+				return getInputsByName(elem.name).numChecked;
+
+			} else {
+
+				return elem.value.length > 0 && elem.value != elem.defaultValue;
+			}
+		}
+
+		function getInputsByName(name){
+
+			var results = [];
+
+			results.numChecked = 0;
+
+			var input = document.getElementsByTagName("input");
+
+			for (var i=0; i<input.length; i++){
+
+				if (input[i].name == name){
+
+					results.push(input[i]);
+				}
+
+				if (input[i].checked){
+
+					results.numChecked++;
+				}
+			}
+
+			return results;
 		}
 
 		</script>
