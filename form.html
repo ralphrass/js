@@ -1,0 +1,130 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<style>
+
+	form {
+
+		font-family: Arial;
+		font-size: 14px;
+		width: 300px;
+	}
+	
+	fieldset{ 
+		border: 1px solid #CCC;
+		margin-bottom: 10px;
+	}
+	fieldset.login input {
+		width: 125px;
+	}
+
+	legend{
+		font-weight: bold;
+		font-size: 1.1em;
+	}
+
+	label{
+
+		display: block;
+		width: 60px;
+		text-align: right;
+		float: left;
+		padding-right: 10px;
+		margin: 5px 0;
+	}
+
+	input {
+		margin: 5px 0;
+	}
+
+	input.text {
+
+		padding: 0 0 0 3px;
+		width: 172px;
+	}
+
+	input.submit{
+		margin: 15px 0 0 70px;
+	}
+}
+
+
+</style>
+
+	</head>	
+	<body>
+
+		<form method="post" >
+
+			<fieldset id="login">
+
+				<legend>Login Info</legend>
+				<label>Login</label>
+				<input style="background-color: " type="text" id="usuario" class="required text" />
+				<br>
+
+				<label>Senha</label>
+				<input type="password" id="senha" class="required text" />
+
+			</fieldset>
+			<br>
+
+			<fieldset>
+
+				<legend>Personal Info</legend>
+
+				<label>Nome</label>
+				<input type="text" id="nome" />
+				<br>
+
+				<label>E-mail</label>
+				<input type="text" id="email" />
+				<br>
+
+				<label>Data</label>
+				<input type="text" id="data" />
+				<br>
+
+				<label>WebSite</label>
+				<input type="text" id="website" />
+				<br>
+
+				<label>Telefone</label>
+				<input type="text" id="telefone" />
+				<br>
+
+				<label>> 13?</label>
+				<input type="checkbox" id="maior" />
+				<br>
+
+			</fieldset>
+
+			<br>
+			<input type="submit" value="Enviar" />
+		</form>
+
+		<script type="text/javascript">
+
+		window.onload = function(){
+
+			var form = document.getElementsByTagName("form")[0];
+
+			form.onsubmit = function(){
+
+				var usuario = document.getElementById("usuario");
+
+				if (usuario.value == ""){
+
+					alert("Por favor, preencha o campo Usuário.");
+
+					return false;
+				}
+
+			}			
+		}
+
+		</script>
+
+	</body>
+</html>
