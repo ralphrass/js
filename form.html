@@ -240,7 +240,7 @@
 
 var errMsg = {
 
-		required: {
+	required: {
 
 		msg: "Campo obrigatório.";
 
@@ -295,7 +295,39 @@ var errMsg = {
 	}
 }
 
+function validateForm(form, load){
 
+	var valid = true;
+
+	for(var i=0; i<form.elements.length; i++){
+
+		hideErrors(form.elements[i]);
+
+		if (! validateField(form.elements[i]), load){
+
+			valid = false;
+		}
+	}
+
+	return valid;
+}
+
+function validateField(elem, load){
+
+
+	var errors = [];
+
+	for(var name in errMsg){
+
+		var re = new RegExp("(^|\\s)" + name + "(\\s|$)");
+
+		if (re.test(elem.className) && !errMsg[name].test(elem, load)){
+
+			errors.push(errMsg[name].msg);
+		}
+	}
+
+}
 
 		</script>
 
