@@ -49,7 +49,14 @@
 	}
 }
 
-
+ul.errors {
+	list-style: none;
+	background: #FFCECE;
+	padding: 3px;
+	margin: 3px 0 3px 70px;
+	font-size: 0.9em;
+	width: 165px;
+}
 </style>
 
 	</head>	
@@ -106,13 +113,13 @@
 
 		<script type="text/javascript">
 
-		window.onload = function(){
+		//window.onload = function(){
 
 			var form = document.getElementsByTagName("form")[0];
 
-			form.onsubmit = function(){
+			//form.onsubmit = function(){
 
-				var elem = document.getElementById("idade");
+				/*var elem = document.getElementById("idade");
 				
 				if (! checkRequired(elem)){
 
@@ -128,7 +135,7 @@
 					alert("Nome é obrigatório.");
 
 					return false;
-				}
+				}*/
 
 				/*elem = document.getElementById("email");
 
@@ -160,7 +167,7 @@
 					return false;
 				}*/
 
-				elem = document.getElementById("telefone");
+				/*elem = document.getElementById("telefone");
 
 				if (! checkPhone(elem)){
 
@@ -170,9 +177,13 @@
 					return false;
 				}
 
-				return false;
-			}	
-		}
+				return false;*/
+
+				
+			//}	
+
+			watchForm( form );
+		//}
 
 		function checkRequired(elem){
 
@@ -314,20 +325,66 @@ function validateForm(form, load){
 
 function validateField(elem, load){
 
-
 	var errors = [];
 
 	for(var name in errMsg){
 
 		var re = new RegExp("(^|\\s)" + name + "(\\s|$)");
 
-		if (re.test(elem.className) && !errMsg[name].test(elem, load)){
+		if (re.test(elem.className)
+			&& !errMsg[name].test(elem, load)) {
 
 			errors.push(errMsg[name].msg);
 		}
 	}
 
+	if (errors.length){
+
+		showErrors(elem, errors);
+
+		return errors.length > 0;
+	}
 }
+
+function hideErrors( elem ) {
+
+	var next = elem.nextSibling;
+
+	if ( next && next.nodeName == "UL" && next.className == "errors" )
+
+	elem.parenttNode.removeChild( next );
+}
+
+function showErrors( elem, errors ) {
+
+	var next = elem.nextSibling;
+
+	if ( next && ( next.nodeName != "UL" || next.className != "errors" ) ) {
+
+		next = document.createElement( "ul" );
+		next.className = "errors";
+
+		elem.paretNode.insertBefore( next, elem.nextSibling );
+	}
+
+	for ( var i = 0; i < errors.length; i++ ) {
+
+		var li = document.createElement( "li" );
+		li.innerHTML = errors[i];
+	
+		next.appendChild( li );
+	}
+}
+
+
+function watchForm( form ) {
+	
+	addEvent( form, 'submit', function(){
+	
+		return validateForm( form );
+	});
+}
+
 
 		</script>
 
