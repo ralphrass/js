@@ -87,7 +87,7 @@
 				<br>
 
 				<label>WebSite</label>
-				<input type="text" id="website" />
+				<input type="text" id="website" value="http://" />
 				<br>
 
 				<label>Telefone</label>
@@ -120,7 +120,58 @@
 
 					return false;
 				}
-			}			
+
+				elem = document.getElementById("nome");
+
+				if (! checkRequired(elem)){
+
+					alert("Nome é obrigatório.");
+
+					return false;
+				}
+
+				/*elem = document.getElementById("email");
+
+				if (! checkEmail(elem)){
+
+
+					alert("E-mail inválido.");
+
+					return false;
+				}*/
+
+				/*elem = document.getElementById("data");
+
+				if (! checkDate(elem)){
+
+
+					alert("Data inválida.");
+
+					return false;
+				}*/
+
+				/*elem = document.getElementById("website");
+
+				if (! checkURL(elem)){
+
+
+					alert("URL inválida.");
+
+					return false;
+				}*/
+
+				elem = document.getElementById("telefone");
+
+				if (! checkPhone(elem)){
+
+
+					alert("Telefone inválido.");
+
+					return false;
+				}
+
+				return false;
+			}	
 		}
 
 		function checkRequired(elem){
@@ -131,7 +182,7 @@
 
 			} else {
 
-				return elem.value.length > 0 && elem.value != elem.defaultValue;
+			return ((elem.value.length > 0) && (elem.value != elem.defaultValue));
 			}
 		}
 
@@ -158,6 +209,93 @@
 
 			return results;
 		}
+
+		function checkURL( elem ) {
+
+			return elem.value == '' || !elem.value == 'http://' ||
+			/^https?:\/\/([a-z0-9-]+\.)+[a-z0-9]{2,4}.*$/.test( elem.value );
+		}
+
+		function checkEmail( elem ) {
+
+			return elem.value == '' || /^[a-z0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/i.test( elem.value );
+		}
+
+		function checkPhone( elem ) {
+
+			var m = /(\d{2}).*(\d{4}).*(\d{4,5})/.exec( elem.value );
+			
+			if ( m !== null ) {
+				elem.value = "(" + m[1] + ") " + m[2] + "-" + m[3];
+			}
+			
+			return elem.value == '' || m !== null;
+		}
+
+		function checkDate( elem ) {
+
+			return !elem.value || /^\d{2}\/\d{2}\/\d{2}$/.test(elem.value) || /^\d{2}\/\d{2}\/\d{4}$/.test(elem.value);
+		}
+
+
+var errMsg = {
+
+		required: {
+
+		msg: "Campo obrigatório.";
+
+		test: function(obj, load){
+
+			return obj.value.length > 0 || load || obj.value == obj.defaultValue;
+
+		}
+	},
+
+	email: {
+		msg: "Not a valid email address.",
+		test: function(obj) {
+		// Make sure that something was entered and that it looks like
+		// an email address
+		return !obj.value ||
+		/^[a-z0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/i.test( obj.value );
+		}
+	},
+
+	phone: {
+		msg: "Not a valid phone number.",
+		test: function(obj) {
+		// Check to see if we have something that looks like
+		// a valid phone number
+		var m = /(\d{3}).*(\d{3}).*(\d{4})/.exec( obj.value );
+		// If it is, seemingly, valid - force it into the specific
+		// format that we desire: (123) 456-7890
+		if ( m ) obj.value = "(" + m[1] + ") " + m[2] + "-" + m[3];
+		return !obj.value || m;
+		}
+	},
+
+	date: {
+		msg: "Not a valid date.",
+		test: function(obj) {
+		// Make sure that something is entered, and that it
+		// looks like a valid MM/DD/YYYY date
+		return !obj.value || /^\d{2}\/\d{2}\/\d{2,4}$/.test(obj.value);
+		}
+	},
+
+	url: {
+		msg: "Not a valid URL.",
+		test: function(obj) {
+		// Make sure that some text was entered, and that it's
+		// not the default http:// text
+		return !obj.value || obj.value == 'http://' ||
+		// Make sure that it looks like a valid URL
+		/^https?:\/\/([a-z0-9-]+\.)+[a-z0-9]{2,4}.*$/.test( obj.value );
+		}
+	}
+}
+
+
 
 		</script>
 
