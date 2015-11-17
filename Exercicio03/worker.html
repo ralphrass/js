@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+
+    <title>Web Worker example</title>
+    </head>
+
+  <body>
+  </body>
+  <script>
+
+  	var worker = new Worker("init_array.js");
+	worker.onmessage = function(evt) {
+		alert("Data array initialization finished!");
+		var data = evt.data;
+		worker.postMessage(data);
+	};
+	
+  </script>
+</html>
