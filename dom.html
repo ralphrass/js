@@ -1,0 +1,252 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+		<style>
+
+		.overlay{
+
+			background-color: #000;
+			opacity: .7;
+			filter: alpha(opacity=70);
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 10;
+		}
+
+		.borda{
+
+			border: 3px dashed red;
+		}
+
+		#foobar{
+			background-color: yellow;
+			width: 100px;
+			height: 100px;
+			cursor: move;
+		}
+
+		#catcher{
+			background-color: blue;
+			width: 150px;
+			height: 150px;
+			padding: 5px;
+			margin-bottom: 5px;
+		}
+
+		</style>
+
+	</head>
+	<body>
+
+		<div id="catcher">
+
+		</div>
+
+		<div id="foobar" draggable="true">
+		</div>
+
+		<script>
+
+			var foobar = document.getElementById("foobar");
+
+			foobar.addEventListener("dragstart", function(evt){
+
+				this.style.border = "3px dotted #000";
+
+			}, false);
+
+			var catcher = document.getElementById("catcher");
+
+			catcher.addEventListener("dragenter", function(evt){
+
+				this.style.border = "3px solid red";
+			}, false);
+
+			catcher.addEventListener("dragleave", function(evt){
+
+				this.style.border = "";
+			}, false);
+
+			catcher.addEventListener("dragover", function(evt){
+
+				if (evt.preventDefault){
+
+					evt.preventDefault();
+				}
+
+				return false;
+			}, false);
+
+			foobar.addEventListener("dragstart", function(evt){
+
+				this.style.border = "3px dotted #000";
+
+				evt.dataTransfer.effectAllowed = "move";
+				evt.dataTransfer.setData("Text", this.id);
+			}, false);
+
+			foobar.addEventListener("dragend", function(evt){
+
+				this.style.border = "";
+			}, false);
+
+			catcher.addEventListener("drop", function(evt){
+
+				if (evt.preventDefault){
+
+					evt.preventDefault();
+				}
+
+				if (evt.stopPropagation){
+
+					evt.stopPropagation();
+				}
+
+				this.style.border = "";
+
+				var id = evt.dataTransfer.getData("Text");
+
+				var elem = document.getElementById(id);
+
+				elem.parentNode.removeChild(elem);
+
+				this.appendChild(elem);
+
+				return false;
+			}, false);
+
+
+
+			/*var dom = document.getElementsByTagName("div");
+
+			if (dom.hasChildNodes){
+
+				//tem algum filho?
+				console.log("x");
+				var p = dom.childNodes;
+				console.log(p);
+
+			}
+
+			for (var i=0; i<dom[0].childNodes.length; i++) {
+
+				var elem = dom[0].childNodes[i];
+
+				if (elem.tagName === "P"){
+
+					var p = elem;
+
+					//p.innerHTML += " Outro texto";
+				}
+			}*/
+
+
+
+			function sobreposicao(){
+
+				//criar uma div?
+				var div = document.createElement("div");
+				div.setAttribute("id", "sobre");
+				div.setAttribute("class", "overlay");
+
+				div.onclick = removerSobreposicao;
+
+				//descendente direto do body?
+				document.body.appendChild(div);
+
+
+			}
+
+			function removerSobreposicao(){
+
+				var div = document.getElementById("sobre");
+
+				div.style.display = "none";
+				div.style.hidden = "hidden";
+			}
+
+			function aoClicar(e){
+
+
+				var userId = "asd123";
+
+			var userPref = {
+
+				ficarLogado: true,
+				paginaInicial: "noticias"
+			};
+
+			sessionStorage.setItem(userId, JSON.stringify(userPref));
+
+			sessionStorage.getItem();
+
+				//sobreposicao();
+			
+/*
+				var div = document.getElementById("container");
+
+				//div.className = "borda";
+
+				var s = document.createElement("source");
+				s.src = "https://www.youtube.com/watch?v=CUxfo9fSEZM";
+
+				var v = document.createElement("video");
+				v.appendChild(s);
+				v.setAttribute("controls", "");
+				v.type = "video/mp4";
+
+				v.style.display = "none";
+
+				v.onclick = function(){
+
+					div.removeChild(v);
+				}
+				//v.width = "320px";
+
+				div.appendChild(v);
+
+				//document.body.appendChild(div);
+
+				/*console.log(div);
+
+				div.getAttribute("style");
+
+				div.setAttribute("align", "center");
+
+				e.preventDefault();*/
+
+				/*console.log(e);
+
+				
+
+				var imagens = document.querySelectorAll('img[alt=""]');
+
+				console.log(imagens);*/
+
+				/*imagens[1].src = "http://www.samsung.com/common/img/samsung-logo.jpg";
+
+				var p = document.createElement("p");
+
+				p.innerHTML = "<em>Texto dentro de um <strong>parágrafo</strong></em>";
+
+				
+				var pes = document.getElementsByTagName("p");
+
+				var div = pes[3].parentNode;
+
+				div.insertBefore(p, pes[3]);*/
+
+			}
+
+			var btn = document.getElementById("btn");
+
+			btn.onclick = aoClicar;
+
+		</script>
+
+	</body>
+</html>
